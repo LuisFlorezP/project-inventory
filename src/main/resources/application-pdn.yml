@@ -1,0 +1,14 @@
+server:
+  port: ${PDN_PORT}
+  servlet:
+    context-path: ${PDN_CONTEXT_PATH}
+
+spring:
+  datasource:
+    url: ${PDN_URL:jdbc}
+    username: ${PDN_USER}
+    password: ${PDN_PASSWORD}
+  jpa:
+    show-sql: ${PDN_SHOW_SQL}
+    hibernate:
+      ddl-auto: ${PDN_HIBERNATE_DDL_AUTO}

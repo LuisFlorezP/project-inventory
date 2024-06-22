@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+  profiles:
+    active: ${PROFILE_ACTIVE}
+
+spring-doc:
+  swagger-ui.path: ${SPRING_DOC_PATH}
+  api-docs.enabled: ${SPRING_DOC_PATH_API_ENABLED}
+  swagger-ui.enabled: ${SPRING_DOC_PATH_SWAGGER_ENABLED}

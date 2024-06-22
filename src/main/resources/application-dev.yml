@@ -1,0 +1,14 @@
+server:
+  port: ${DEV_PORT}
+  servlet:
+    context-path: ${DEV_CONTEXT_PATH}
+
+spring:
+  datasource:
+    url: ${DEV_URL:jdbc}
+    username: ${DEV_USER}
+    password: ${DEV_PASSWORD}
+  jpa:
+    show-sql: ${DEV_SHOW_SQL}
+    hibernate:
+      ddl-auto: ${DEV_HIBERNATE_DDL_AUTO}
