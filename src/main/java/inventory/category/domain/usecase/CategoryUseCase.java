@@ -3,9 +3,8 @@ package inventory.category.domain.usecase;
 import inventory.category.domain.model.Category;
 import inventory.category.domain.port.api.ICategoryService;
 import inventory.category.domain.port.spi.ICategoryPersistence;
-import inventory.common.infraestructure.exception.OccupiedSpaceException;
+import inventory.common.infraestructure.exception.NotFoundCategoryException;
 import java.util.List;
-import static inventory.common.application.utils.Constants.RQ_UUID;
 
 public class CategoryUseCase implements ICategoryService {
 
@@ -17,10 +16,15 @@ public class CategoryUseCase implements ICategoryService {
 
     @Override
     public List<Category> getCategories() {
-        String rqUuid = System.getProperty(RQ_UUID);
-
-        if (rqUuid.equals("123")) throw new OccupiedSpaceException();
-
         return categoryPersistence.getCategories();
+    }
+
+    @Override
+    public Category getCategoryById(Long id) {
+        Category categoryById = categoryPersistence.getCategoryById(id);
+
+        if (categoryById == null) throw new NotFoundCategoryException();
+
+        return categoryById;
     }
 }

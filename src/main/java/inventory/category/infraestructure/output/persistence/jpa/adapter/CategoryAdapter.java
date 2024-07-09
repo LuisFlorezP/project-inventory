@@ -21,4 +21,9 @@ public class CategoryAdapter implements ICategoryPersistence {
     public List<Category> getCategories() {
         return categoryEntityMapper.toModels((List<CategoryEntity>) categoryDao.findAll());
     }
+
+    @Override
+    public Category getCategoryById(Long id) {
+        return categoryEntityMapper.toModel(categoryDao.findById(id).orElse(null));
+    }
 }

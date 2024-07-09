@@ -1,5 +1,6 @@
 package inventory.category.application.handler.impl;
 
+import inventory.category.application.dto.response.ByIdCategoryRs;
 import inventory.category.application.dto.response.CategoryRs;
 import inventory.category.application.dto.response.ListCategoryRs;
 import inventory.category.application.handler.ICategoryHandler;
@@ -18,7 +19,7 @@ import static inventory.common.application.utils.Constants.*;
 @Transactional
 public class CategoryHandler implements ICategoryHandler {
 
-    private final Logger log = Logger.getLogger(String.valueOf(CategoryHandler.class));
+    private final Logger logger = Logger.getLogger(String.valueOf(CategoryHandler.class));
     private final ICategoryService categoryService;
     private final ICategoryMapper categoryMapper;
 
@@ -29,14 +30,26 @@ public class CategoryHandler implements ICategoryHandler {
 
     @Override
     public ListCategoryRs getCategories() {
-        log.log(Level.INFO, LOG_START_HANDLER + "getCategories");
+        logger.log(Level.INFO, LOG_START_HANDLER + "getCategories");
 
-        BaseRs baseRs = new BaseRs(System.getProperty(RQ_UUID), HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), SUCCESS_MESSAGE);
+        BaseRs baseRs = new BaseRs(System.getProperty(RQ_UUID), HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), SUCCESS_CATEGORY_MESSAGE);
 
         List<CategoryRs> categories = categoryMapper.toResponses(categoryService.getCategories());
         ListCategoryRs response = new ListCategoryRs(baseRs, categories);
 
-        log.log(Level.INFO, LOG_END_HANDLER + "getCategories");
+        logger.log(Level.INFO, LOG_END_HANDLER + "getCategories");
         return response;
     }
+
+    @Override
+    public ByIdCategoryRs getCategoryById(Long id) {
+        logger.log(Level.INFO, LOG_START_HANDLER + "getCategoryById");
+
+        BaseRs baseRs = new BaseRs(System.getProperty(RQ_UUID), HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), SUCCESS_CATEGORY_MESSAGE);
+
+        CategoryRs category = categoryMapper.toResponse(categoryService.getCategoryById(id));
+        ByIdCategoryRs response = new ByIdCategoryRs(baseRs, category);
+
+        logger.log(Level.INFO, LOG_END_HANDLER + "getCategoryById");
+        return response;    }
 }

@@ -1,5 +1,6 @@
 package inventory.category.infraestructure.input.rest;
 
+import inventory.category.application.dto.response.ByIdCategoryRs;
 import inventory.category.application.dto.response.ListCategoryRs;
 import inventory.category.application.handler.ICategoryHandler;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +26,13 @@ public class CategoryController {
     public ResponseEntity<ListCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid) {
         System.setProperty(RQ_UUID, rqUuid);
         ListCategoryRs response = categoryHandler.getCategories();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @Operation(summary = "Allows you to see category")
+    @GetMapping("/{id}")
+    public ResponseEntity<ByIdCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable(name = "id") Long id) {
+        System.setProperty(RQ_UUID, rqUuid);
+        ByIdCategoryRs response = categoryHandler.getCategoryById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

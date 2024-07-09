@@ -6,4 +6,6 @@ import java.util.List;
 public interface ICategoryPersistence {
 
     List<Category> getCategories();
+
+    Category getCategoryById(Long id);
 }
