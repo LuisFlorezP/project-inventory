@@ -16,4 +16,13 @@ public class Constants {
     public static final String URL_LICENSE = "http://springdoc.org";
     public static final String APP_DESCRIPTION = "Backend to project inventory.";
     public static final String APP_VERSION = "1.0.0";
+
+    public static final String SUCCESS_MESSAGE = "Successful category query";
+
+    public static final String OCCUPIED_SPACE = "The space for which you wish to schedule is already occupied for said health provider.";
+
+    public static final String RQ_UUID = "rqUuid";
+
+    public static final String LOG_START_HANDLER = ">>> Start ";
+    public static final String LOG_END_HANDLER = "<<< End ";
 }
