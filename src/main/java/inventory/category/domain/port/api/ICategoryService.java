@@ -10,4 +10,6 @@ public interface ICategoryService {
     Category getCategoryById(Long id);
 
     Category saveCategory(Category category);
+
+    Category updateCategory(Category category, Long id);
 }

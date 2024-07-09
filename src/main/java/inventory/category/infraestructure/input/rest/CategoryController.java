@@ -32,7 +32,7 @@ public class CategoryController {
 
     @Operation(summary = "Allows you to see category")
     @GetMapping("/{id}")
-    public ResponseEntity<SingleCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<SingleCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable Long id) {
         System.setProperty(RQ_UUID, rqUuid);
         SingleCategoryRs response = categoryHandler.getCategoryById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -43,6 +43,14 @@ public class CategoryController {
     public ResponseEntity<SingleCategoryRs> saveCategory(@RequestHeader(name = "rqUuid") String rqUuid, @RequestBody CategoryRq categoryRq) {
         System.setProperty(RQ_UUID, rqUuid);
         SingleCategoryRs response = categoryHandler.saveCategory(categoryRq);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Allows you to update category")
+    @PutMapping("/{id}")
+    public ResponseEntity<SingleCategoryRs> updateCategory(@RequestHeader(name = "rqUuid") String rqUuid, @RequestBody CategoryRq categoryRq, @PathVariable Long id) {
+        System.setProperty(RQ_UUID, rqUuid);
+        SingleCategoryRs response = categoryHandler.updateCategory(categoryRq, id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

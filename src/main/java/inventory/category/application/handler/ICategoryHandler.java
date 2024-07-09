@@ -11,4 +11,6 @@ public interface ICategoryHandler {
     SingleCategoryRs getCategoryById(Long id);
 
     SingleCategoryRs saveCategory(CategoryRq categoryRq);
+
+    SingleCategoryRs updateCategory(CategoryRq categoryRq, Long id);
 }

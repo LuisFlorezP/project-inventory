@@ -20,6 +20,7 @@ public class Constants {
     public static final String SUCCESS_CATEGORY_MESSAGE = "Successful category process";
 
     public static final String NOT_FOUND_CATEGORY = "Category not found for the provided ID.";
+    public static final String EQUAL_CATEGORY = "The category provided is identical to the existing one.";
 
     public static final String RQ_UUID = "rqUuid";
 

@@ -3,6 +3,7 @@ package inventory.category.domain.usecase;
 import inventory.category.domain.model.Category;
 import inventory.category.domain.port.api.ICategoryService;
 import inventory.category.domain.port.spi.ICategoryPersistence;
+import inventory.common.infraestructure.exception.EqualCategoryException;
 import inventory.common.infraestructure.exception.NotFoundCategoryException;
 import java.util.List;
 
@@ -31,5 +32,20 @@ public class CategoryUseCase implements ICategoryService {
     @Override
     public Category saveCategory(Category category) {
         return categoryPersistence.saveCategory(category);
+    }
+
+    @Override
+    public Category updateCategory(Category category, Long id) {
+        Category categoryById = this.getCategoryById(id);
+
+        this.verifyEqualData(categoryById, category);
+
+        return categoryPersistence.saveCategory(categoryById);
+    }
+
+    private void verifyEqualData(Category categoryDB, Category category) {
+        if (categoryDB.getName().equals(category.getName()) && categoryDB.getDescription().equals(category.getDescription())) throw new EqualCategoryException();
+        categoryDB.setName(category.getName());
+        categoryDB.setDescription(category.getDescription());
     }
 }
