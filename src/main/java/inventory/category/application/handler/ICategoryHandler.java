@@ -1,11 +1,14 @@
 package inventory.category.application.handler;
 
-import inventory.category.application.dto.response.ByIdCategoryRs;
+import inventory.category.application.dto.request.CategoryRq;
+import inventory.category.application.dto.response.SingleCategoryRs;
 import inventory.category.application.dto.response.ListCategoryRs;
 
 public interface ICategoryHandler {
 
     ListCategoryRs getCategories();
 
-    ByIdCategoryRs getCategoryById(Long id);
+    SingleCategoryRs getCategoryById(Long id);
+
+    SingleCategoryRs saveCategory(CategoryRq categoryRq);
 }

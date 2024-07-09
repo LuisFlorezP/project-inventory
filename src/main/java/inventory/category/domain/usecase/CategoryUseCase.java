@@ -27,4 +27,9 @@ public class CategoryUseCase implements ICategoryService {
 
         return categoryById;
     }
+
+    @Override
+    public Category saveCategory(Category category) {
+        return categoryPersistence.saveCategory(category);
+    }
 }

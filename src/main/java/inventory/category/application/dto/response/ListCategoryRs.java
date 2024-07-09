@@ -20,7 +20,15 @@ public class ListCategoryRs {
         return status;
     }
 
+    public void setStatus(BaseRs status) {
+        this.status = status;
+    }
+
     public List<CategoryRs> getCategories() {
         return categories;
+    }
+
+    public void setCategories(List<CategoryRs> categories) {
+        this.categories = categories;
     }
 }

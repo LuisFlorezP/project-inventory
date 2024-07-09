@@ -8,4 +8,6 @@ public interface ICategoryPersistence {
     List<Category> getCategories();
 
     Category getCategoryById(Long id);
+
+    Category saveCategory(Category category);
 }

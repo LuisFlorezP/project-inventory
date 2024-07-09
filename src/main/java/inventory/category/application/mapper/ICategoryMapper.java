@@ -1,5 +1,6 @@
 package inventory.category.application.mapper;
 
+import inventory.category.application.dto.request.CategoryRq;
 import inventory.category.application.dto.response.CategoryRs;
 import inventory.category.domain.model.Category;
 import org.mapstruct.Mapper;
@@ -14,4 +15,6 @@ public interface ICategoryMapper {
     CategoryRs toResponse(Category category);
 
     List<CategoryRs> toResponses(List<Category> category);
+
+    Category toModel(CategoryRq categoryRq);
 }

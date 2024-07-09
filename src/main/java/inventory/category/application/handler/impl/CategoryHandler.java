@@ -1,6 +1,7 @@
 package inventory.category.application.handler.impl;
 
-import inventory.category.application.dto.response.ByIdCategoryRs;
+import inventory.category.application.dto.request.CategoryRq;
+import inventory.category.application.dto.response.SingleCategoryRs;
 import inventory.category.application.dto.response.CategoryRs;
 import inventory.category.application.dto.response.ListCategoryRs;
 import inventory.category.application.handler.ICategoryHandler;
@@ -42,14 +43,28 @@ public class CategoryHandler implements ICategoryHandler {
     }
 
     @Override
-    public ByIdCategoryRs getCategoryById(Long id) {
+    public SingleCategoryRs getCategoryById(Long id) {
         logger.log(Level.INFO, LOG_START_HANDLER + "getCategoryById");
 
         BaseRs baseRs = new BaseRs(System.getProperty(RQ_UUID), HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), SUCCESS_CATEGORY_MESSAGE);
 
         CategoryRs category = categoryMapper.toResponse(categoryService.getCategoryById(id));
-        ByIdCategoryRs response = new ByIdCategoryRs(baseRs, category);
+        SingleCategoryRs response = new SingleCategoryRs(baseRs, category);
 
         logger.log(Level.INFO, LOG_END_HANDLER + "getCategoryById");
-        return response;    }
+        return response;
+    }
+
+    @Override
+    public SingleCategoryRs saveCategory(CategoryRq categoryRq) {
+        logger.log(Level.INFO, LOG_START_HANDLER + "saveCategory");
+
+        BaseRs baseRs = new BaseRs(System.getProperty(RQ_UUID), HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), SUCCESS_CATEGORY_MESSAGE);
+
+        CategoryRs category = categoryMapper.toResponse(categoryService.saveCategory(categoryMapper.toModel(categoryRq)));
+        SingleCategoryRs response = new SingleCategoryRs(baseRs, category);
+
+        logger.log(Level.INFO, LOG_END_HANDLER + "saveCategory");
+        return response;
+    }
 }

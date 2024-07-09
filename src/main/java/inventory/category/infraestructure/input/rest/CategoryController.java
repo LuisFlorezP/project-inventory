@@ -1,6 +1,7 @@
 package inventory.category.infraestructure.input.rest;
 
-import inventory.category.application.dto.response.ByIdCategoryRs;
+import inventory.category.application.dto.request.CategoryRq;
+import inventory.category.application.dto.response.SingleCategoryRs;
 import inventory.category.application.dto.response.ListCategoryRs;
 import inventory.category.application.handler.ICategoryHandler;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,11 +29,20 @@ public class CategoryController {
         ListCategoryRs response = categoryHandler.getCategories();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @Operation(summary = "Allows you to see category")
     @GetMapping("/{id}")
-    public ResponseEntity<ByIdCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<SingleCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable(name = "id") Long id) {
         System.setProperty(RQ_UUID, rqUuid);
-        ByIdCategoryRs response = categoryHandler.getCategoryById(id);
+        SingleCategoryRs response = categoryHandler.getCategoryById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Allows you to create new category")
+    @PostMapping
+    public ResponseEntity<SingleCategoryRs> saveCategory(@RequestHeader(name = "rqUuid") String rqUuid, @RequestBody CategoryRq categoryRq) {
+        System.setProperty(RQ_UUID, rqUuid);
+        SingleCategoryRs response = categoryHandler.saveCategory(categoryRq);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
