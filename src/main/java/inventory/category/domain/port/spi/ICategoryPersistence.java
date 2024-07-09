@@ -10,4 +10,6 @@ public interface ICategoryPersistence {
     Category getCategoryById(Long id);
 
     Category saveCategory(Category category);
+
+    void deleteCategoryById(Long id);
 }

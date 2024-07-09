@@ -4,6 +4,7 @@ import inventory.category.application.dto.request.CategoryRq;
 import inventory.category.application.dto.response.SingleCategoryRs;
 import inventory.category.application.dto.response.ListCategoryRs;
 import inventory.category.application.handler.ICategoryHandler;
+import inventory.common.application.dto.response.NoContentRs;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class CategoryController {
     public ResponseEntity<SingleCategoryRs> saveCategory(@RequestHeader(name = "rqUuid") String rqUuid, @RequestBody CategoryRq categoryRq) {
         System.setProperty(RQ_UUID, rqUuid);
         SingleCategoryRs response = categoryHandler.saveCategory(categoryRq);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Allows you to update category")
@@ -51,6 +52,14 @@ public class CategoryController {
     public ResponseEntity<SingleCategoryRs> updateCategory(@RequestHeader(name = "rqUuid") String rqUuid, @RequestBody CategoryRq categoryRq, @PathVariable Long id) {
         System.setProperty(RQ_UUID, rqUuid);
         SingleCategoryRs response = categoryHandler.updateCategory(categoryRq, id);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+    }
+
+    @Operation(summary = "Allows you to delete category")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<NoContentRs> deleteCategory(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable Long id) {
+        System.setProperty(RQ_UUID, rqUuid);
+        NoContentRs response = categoryHandler.deleteCategory(id);
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 }

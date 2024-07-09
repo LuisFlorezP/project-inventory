@@ -43,6 +43,13 @@ public class CategoryUseCase implements ICategoryService {
         return categoryPersistence.saveCategory(categoryById);
     }
 
+    @Override
+    public void deleteCategoryById(Long id) {
+        this.getCategoryById(id);
+
+        categoryPersistence.deleteCategoryById(id);
+    }
+
     private void verifyEqualData(Category categoryDB, Category category) {
         if (categoryDB.getName().equals(category.getName()) && categoryDB.getDescription().equals(category.getDescription())) throw new EqualCategoryException();
         categoryDB.setName(category.getName());

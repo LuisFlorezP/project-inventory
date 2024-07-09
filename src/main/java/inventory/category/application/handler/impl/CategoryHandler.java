@@ -8,6 +8,7 @@ import inventory.category.application.handler.ICategoryHandler;
 import inventory.category.application.mapper.ICategoryMapper;
 import inventory.category.domain.port.api.ICategoryService;
 import inventory.common.application.dto.response.BaseRs;
+import inventory.common.application.dto.response.NoContentRs;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +83,20 @@ public class CategoryHandler implements ICategoryHandler {
         SingleCategoryRs response = new SingleCategoryRs(baseRs, category);
 
         logger.log(Level.INFO, LOG_END_HANDLER + "updateCategory");
+        return response;
+    }
+
+    @Override
+    public NoContentRs deleteCategory(Long id) {
+        logger.log(Level.INFO, LOG_START_HANDLER + "deleteCategory");
+
+        HttpStatus status = HttpStatus.ACCEPTED;
+        BaseRs baseRs = new BaseRs(System.getProperty(RQ_UUID), status.value(), status.getReasonPhrase(), SUCCESS_CATEGORY_MESSAGE);
+
+        categoryService.deleteCategoryById(id);
+        NoContentRs response = new NoContentRs(baseRs);
+
+        logger.log(Level.INFO, LOG_END_HANDLER + "deleteCategory");
         return response;
     }
 }
