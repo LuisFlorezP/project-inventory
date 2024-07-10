@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import static inventory.common.application.utils.Constants.RQ_UUID;
 
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/categories")
 @Tag(name = "Category Controller", description = "Controller to the Category entity")
