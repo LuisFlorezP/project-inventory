@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import static inventory.common.application.utils.Constants.*;
 
-
 @Configuration
 public class OpenApiConfiguration {
 
