@@ -24,7 +24,7 @@ public class CategoryController {
         this.categoryHandler = categoryHandler;
     }
 
-    @Operation(summary = "Allows you to see all categories")
+    @Operation(summary = "Get-Categories", description = "Allows you to see all categories")
     @GetMapping
     public ResponseEntity<ListCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid) {
         System.setProperty(RQ_UUID, rqUuid);
@@ -32,15 +32,15 @@ public class CategoryController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(summary = "Allows you to see category")
+    @Operation(summary = "Get-Category-By-Id", description = "Allows you to see category")
     @GetMapping("/{id}")
-    public ResponseEntity<SingleCategoryRs> getCategories(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable Long id) {
+    public ResponseEntity<SingleCategoryRs> getCategoryById(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable Long id) {
         System.setProperty(RQ_UUID, rqUuid);
         SingleCategoryRs response = categoryHandler.getCategoryById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(summary = "Allows you to create new category")
+    @Operation(summary = "Save-Category", description = "Allows you to create new category")
     @PostMapping
     public ResponseEntity<SingleCategoryRs> saveCategory(@RequestHeader(name = "rqUuid") String rqUuid, @RequestBody CategoryRq categoryRq) {
         System.setProperty(RQ_UUID, rqUuid);
@@ -48,7 +48,7 @@ public class CategoryController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Allows you to update category")
+    @Operation(summary = "Update-Category", description = "Allows you to update category")
     @PutMapping("/{id}")
     public ResponseEntity<SingleCategoryRs> updateCategory(@RequestHeader(name = "rqUuid") String rqUuid, @RequestBody CategoryRq categoryRq, @PathVariable Long id) {
         System.setProperty(RQ_UUID, rqUuid);
@@ -56,7 +56,7 @@ public class CategoryController {
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
-    @Operation(summary = "Allows you to delete category")
+    @Operation(summary = "Delete-Category", description = "Allows you to delete category")
     @DeleteMapping("/{id}")
     public ResponseEntity<NoContentRs> deleteCategory(@RequestHeader(name = "rqUuid") String rqUuid, @PathVariable Long id) {
         System.setProperty(RQ_UUID, rqUuid);

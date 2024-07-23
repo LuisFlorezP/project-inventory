@@ -5,6 +5,7 @@ import inventory.common.application.dto.response.BaseRs;
 import inventory.common.infraestructure.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ExceptionRs> handlerException(Exception e) {
-        String message = LOG_ERROR + e.getMessage();
+        String message = LOG_ERROR + "Exception: " + e.getClass().getName() + ". Message: " + e.getMessage();
         log.log(Level.WARNING, message);
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -34,5 +35,15 @@ public class ControllerAdvisor {
 
         return ResponseEntity.status(e.getStatus())
                 .body(new ExceptionRs(new BaseRs(e.getRqUid(), e.getStatus().value(), e.getStatus().getReasonPhrase(), e.getMessage())));
+    }
+
+    @ExceptionHandler(value = MissingRequestHeaderException.class)
+    public ResponseEntity<ExceptionRs> handlerMissingRequestHeaderException(MissingRequestHeaderException e) {
+        String message = LOG_ERROR + e.getMessage();
+        log.log(Level.WARNING, message);
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status)
+                .body(new ExceptionRs(new BaseRs(System.getProperty(RQ_UUID), status.value(), status.getReasonPhrase(), e.getMessage())));
     }
 }
